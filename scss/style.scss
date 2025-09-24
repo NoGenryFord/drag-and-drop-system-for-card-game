@@ -1,0 +1,28 @@
+//Reset all styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+  font-family: Arial, sans-serif;
+  user-select: none;
+}
+button,
+input,
+a {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+@import "component";
