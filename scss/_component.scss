@@ -24,7 +24,27 @@
   border: 2px solid black;
   transition: transform 0.2s ease;
   &:active {
+    cursor: grabbing;
     border: 2px solid red;
     transform: scale(1.1);
   }
+}
+
+.target_position_1 {
+  position: fixed;
+  left: 20px;
+  height: 300px;
+  width: 300px;
+  border-radius: 20px;
+  background-color: #0097fca8;
+  border: 2px solid black;
+}
+.target_position_2 {
+  position: fixed;
+  right: 20px;
+  height: 300px;
+  width: 300px;
+  border-radius: 20px;
+  background-color: #0097fca8;
+  border: 2px solid black;
 }

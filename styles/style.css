@@ -71,7 +71,29 @@ ul {
   transition: transform 0.2s ease, -webkit-transform 0.2s ease;
 }
 .card_dad:active {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
   border: 2px solid red;
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
+}
+
+.target_position_1 {
+  position: fixed;
+  left: 20px;
+  height: 300px;
+  width: 300px;
+  border-radius: 20px;
+  background-color: rgba(0, 151, 252, 0.6588235294);
+  border: 2px solid black;
+}
+
+.target_position_2 {
+  position: fixed;
+  right: 20px;
+  height: 300px;
+  width: 300px;
+  border-radius: 20px;
+  background-color: rgba(0, 151, 252, 0.6588235294);
+  border: 2px solid black;
 }/*# sourceMappingURL=style.css.map */
