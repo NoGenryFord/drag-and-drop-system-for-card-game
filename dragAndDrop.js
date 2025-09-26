@@ -55,6 +55,20 @@ class DragDropSystem {
     });
   }
 
+  // Add a new drag element dynamically
+  addDragElement(element, id) {
+    const dragItem = {
+      element,
+      id: id || `drag_${Date.now()}`,
+      isOver: false,
+      isHeld: false,
+    };
+
+    this.dragElements.push(dragItem);
+    this.setupDragElementEvents(dragItem);
+    console.log(`Added drag element: ${dragItem.id}`);
+  }
+
   // Setup event listeners for all drag elements
   setupEventListeners() {
     this.dragElements.forEach((dragItem) => {
