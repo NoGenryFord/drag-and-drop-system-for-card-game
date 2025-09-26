@@ -146,8 +146,9 @@ class DragDropSystem {
       const nearestTarget = this.findNearestTarget(dragItem);
       if (nearestTarget) {
         this.snapToTarget(dragItem, nearestTarget);
+        this.updateOriginPosition(dragItem);
       } else {
-        this.resetToOrigin(dragItem);
+        this.returnToOrigin(dragItem);
       }
     }
   }
@@ -162,7 +163,7 @@ class DragDropSystem {
     dragItem.element.style.top = clientY - offsetY + "px";
   }
 
-  findNearestTarget(dragItem, threshold = 100) {
+  findNearestTarget(dragItem, threshold = 50) {
     const dragRect = dragItem.element.getBoundingClientRect();
     const dragCenterX = dragRect.left + dragRect.width / 2;
     const dragCenterY = dragRect.top + dragRect.height / 2;
@@ -200,7 +201,10 @@ class DragDropSystem {
   }
 
   saveOriginPosition(dragItem) {
-    if (!this.originPosition) {
+    if (
+      !this.originPosition ||
+      this.originPosition.element !== dragItem.element
+    ) {
       const rect = dragItem.element.getBoundingClientRect();
       const style = window.getComputedStyle(dragItem.element);
       this.originPosition = {
@@ -212,15 +216,52 @@ class DragDropSystem {
     }
   }
 
-  resetToOrigin(dragItem) {
+  // Update origin position after successful drop
+  updateOriginPosition(dragItem) {
+    const rect = dragItem.element.getBoundingClientRect();
+    const style = window.getComputedStyle(dragItem.element);
+
+    this.originPosition = {
+      element: dragItem.element,
+      left: parseFloat(style.left) || rect.left,
+      top: parseFloat(style.top) || rect.top,
+      position: style.position,
+    };
+
+    console.log(`Origin position updated for ${dragItem.id} to new location`);
+  }
+
+  // Reset to original position if no target is nearby
+  returnToOrigin(dragItem) {
     if (
       this.originPosition &&
       this.originPosition.element === dragItem.element
     ) {
+      // New class to animation
+      dragItem.element.classList.add("returning_to_origin");
+
+      // Set target position
       dragItem.element.style.position = this.originPosition.position;
       dragItem.element.style.left = this.originPosition.left + "px";
       dragItem.element.style.top = this.originPosition.top + "px";
+
+      // Remove class after animation
+      setTimeout(() => {
+        dragItem.element.classList.remove("returning_to_origin");
+      }, 400); // Match with CSS transition duration
+
+      console.log(`${dragItem.id} returned to last known position`);
+    }
+  }
+
+  // Optional: Clear origin position if needed
+  clearOriginPosition(dragItem) {
+    if (
+      this.originPosition &&
+      this.originPosition.element === dragItem.element
+    ) {
       this.originPosition = null;
+      console.log(`Origin position cleared for ${dragItem.id}`);
     }
   }
 
@@ -239,7 +280,7 @@ const dragDropSystem = new DragDropSystem();
 
 // Initialization with provided IDs
 dragDropSystem.init(
-  ["cardDad", "card2", "card3"], // IDs of elements for drag
-  ["targetPosition1", "targetPosition2", "target3", "dropZone1"] // IDs of target zones
+  ["cardDad"], // IDs of elements for drag
+  ["targetPosition1", "targetPosition2", "targetPositionContainer"] // IDs of target zones
 );
 // *******************************************

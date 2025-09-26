@@ -16,7 +16,7 @@
   align-items: center;
 }
 
-.card_dad {
+.card {
   height: 300px;
   width: 220px;
   background-color: #9c9c9cb7;
@@ -27,6 +27,11 @@
     cursor: grabbing;
     border: 2px solid red;
     transform: scale(1.1);
+  }
+
+  &.returning_to_origin {
+    transition: left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+      top 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
   }
 }
 

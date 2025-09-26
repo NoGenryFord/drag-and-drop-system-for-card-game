@@ -59,7 +59,7 @@ ul {
           align-items: center;
 }
 
-.card_dad {
+.card {
   height: 300px;
   width: 220px;
   background-color: rgba(156, 156, 156, 0.7176470588);
@@ -70,12 +70,16 @@ ul {
   transition: transform 0.2s ease;
   transition: transform 0.2s ease, -webkit-transform 0.2s ease;
 }
-.card_dad:active {
+.card:active {
   cursor: -webkit-grabbing;
   cursor: grabbing;
   border: 2px solid red;
   -webkit-transform: scale(1.1);
           transform: scale(1.1);
+}
+.card.returning_to_origin {
+  -webkit-transition: left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), top 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  transition: left 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), top 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
 }
 
 .target_position_1 {
